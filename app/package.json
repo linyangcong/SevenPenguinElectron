@@ -1,0 +1,11 @@
+{
+  "name": "rcpapp",
+  "version": "1.0.0",
+  "description": "An electron-vue project",
+  "main": "./dist/main.js",
+  "dependencies": {
+
+  },
+  "devDependencies": {},
+  "author": "B-soft"
+}
