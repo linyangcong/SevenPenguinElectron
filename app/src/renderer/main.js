@@ -17,3 +17,8 @@ new Vue({
   // template: '<App/>',
 	render: h => h(App)
 });
+
+router.beforeEach((fromRouter,toRouter,next)=>{
+  // console.log(fromRouter,toRouter)
+  next()
+})
