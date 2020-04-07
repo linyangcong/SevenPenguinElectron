@@ -30,7 +30,7 @@
     </div>
     <div class="searchMusicContent" v-for="(value,key) in searchMusicList" :key="key">
       <div><img :src="value.album.artist.img1v1Url" alt="暂无图片" /></div>
-      <div>{{value.name}}</div>
+      <div @click="goMusicPlay(value)">{{value.name}}</div>
       <div>{{value.artists[0].name}}</div>
       <div>{{value.album.name}}</div>
       <div>{{value.duration|getDuration}}</div>
@@ -60,6 +60,35 @@ data() {
       }
     },
     methods: {
+      goMusicPlay(item){
+        // let src=''
+        // console.log(item)
+        // let musicDetail={
+        //   duration:item.duration,
+        //   id:item.id,
+        //   name:item.name,
+        //   album:{
+        //       opyrightId:1416601,
+        //       id:86339613,
+        //       mark:0,
+        //       name:"平凡天使",
+        //       picId:109951164784376720,
+        //       publishTime:1583769600000,
+        //       size:1,
+        //       status:0,
+        //     }
+            
+          
+        // }
+        // let musicDetail=JSON.stringify(item)
+        Axios.get(MusicServer+'song/url?id='+item.id).then(res=>{
+    // src=res.data.data[0].url
+    sessionStorage.setItem('musicDetail',JSON.stringify({...item,src:res.data.data[0].url}))
+        console.log(sessionStorage.getItem('musicDetail'))
+        this.$router.push('/musicPlay')
+})
+        
+      },
       querySearchAsync(queryString, cb) {
         var restaurants = this.restaurants;
         var results = queryString ? restaurants.filter(this.createStateFilter(queryString)) : restaurants;
@@ -77,7 +106,7 @@ data() {
       handleSelect(item) {
         // console.log(item);
         Axios.get(MusicServer+'search?keywords='+item.id).then(res=>{
-          console.log(res)
+          // console.log(res)
           if(res.data.code==200){
             this.searchMusicList=res.data.result.songs
             this.searchMusicCount=res.data.result.songCount
@@ -109,7 +138,7 @@ data() {
         }
       })
       Axios.get(MusicServer+'personalized?limit=8').then(res=>{
-        console.log(res)
+        // console.log(res)
         if(res.data.code==200){
           this.TJMusic=res.data.result
         }
@@ -180,7 +209,8 @@ data() {
 }
 
 .TJDIV{
-  line-height: 3rem;
+  line-height: 1.2rem;
+  /* white-space: normal; */
   /* display: flex; */
   /* flex-direction: row; */
    /* overflow: hidden; */
@@ -197,6 +227,10 @@ data() {
   padding: 0.2rem 1rem ;
   border-radius: 0.9rem;
   border: 1px solid #666;
+  min-width: 2rem;
+  margin-top: 0.5rem;
+  /* white-space: nowrap; */
+  display: inline-block;
   /* background: ; */
 }
 </style>

@@ -35,7 +35,7 @@ import {ipcRenderer } from 'electron'
     methods:{
       goBack(){
         // console.log('返回')
-        console.log(this.$router)
+        // console.log(this.$router)
         this.$router.go(-1)
       },
       windowMin(){
@@ -71,6 +71,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,#app::-webkit-scrollbar{
   background: rgb(255, 78, 78);
   display: flex;
   flex-direction: row;
+  z-index: 9999;
   justify-content: space-between;
   /* height: 2.5rem; */
 }
